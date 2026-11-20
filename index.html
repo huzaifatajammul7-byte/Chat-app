@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Chat – Log in</title>
+<meta name="theme-color" content="#0b141a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="splash" id="splash">
+  <div class="logo"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg></div>
+  <div class="spinner big"></div>
+</div>
+
+<div class="auth-wrap">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="auth-card">
+    <div class="logo"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg></div>
+    <h1 id="title">Welcome back</h1>
+    <p class="sub" id="sub">Log in to continue your chats.</p>
+
+    <div class="tabs" id="tabs">
+      <div class="tab-ind"></div>
+      <button type="button" class="on" data-mode="login">Log in</button>
+      <button type="button" data-mode="signup">Sign up</button>
+    </div>
+
+    <form id="form" class="login-mode" novalidate>
+      <label class="field name-field"><span>Your name</span><div class="inp"><input id="name" autocomplete="name" maxlength="40" placeholder="Ali Khan"></div></label>
+      <label class="field"><span>Email</span><div class="inp"><input id="email" type="email" autocomplete="email" placeholder="you@example.com"></div></label>
+      <label class="field"><span>Password</span><div class="inp"><input id="password" type="password" autocomplete="current-password" placeholder="At least 6 characters"><button type="button" class="eye" id="eye">Show</button></div></label>
+      <div class="error" id="error" role="alert"></div>
+      <button class="btn" id="submit" type="submit"><span id="btnText">Log in</span></button>
+    </form>
+  </div>
+</div>
+
+<script type="module" src="/src/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# secrets - NEVER push these
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# build / misc
+dist/
+coverage/
+.vercel/
+*.zip

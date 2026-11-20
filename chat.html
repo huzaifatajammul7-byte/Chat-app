@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<title>Chat</title>
+<meta name="theme-color" content="#1a2730">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="splash" id="splash">
+  <div class="logo"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg></div>
+  <div class="spinner big"></div>
+  <div class="s-msg">Loading your chats…</div>
+</div>
+
+<div class="net hidden" id="net"><div class="spinner"></div><span id="netText">Reconnecting…</span></div>
+
+<div class="app">
+  <aside class="sidebar">
+    <header class="side-head">
+      <button class="me" id="meBtn" title="Edit profile">
+        <span id="meAv"></span>
+        <span class="me-name" id="meName"></span>
+      </button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Change theme" title="Change theme"></button>
+      <button class="icon-btn" id="logoutBtn" title="Log out" aria-label="Log out">
+        <svg viewBox="0 0 24 24"><path d="M17 7l-1.4 1.4 2.6 2.6H9v2h9.2l-2.6 2.6L17 17l5-5-5-5zM4 5h8V3H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8v-2H4V5z"/></svg>
+      </button>
+    </header>
+    <div class="search"><div class="box">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+      <input id="search" placeholder="Search people" autocomplete="off">
+    </div></div>
+    <div class="list" id="list"></div>
+  </aside>
+
+  <main class="chat">
+    <div class="empty" id="empty">
+      <div class="logo"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg></div>
+      <h2>Pick someone to chat with</h2>
+      <p>Messages are delivered instantly.<br>Blue ticks mean they've read it.</p>
+    </div>
+
+    <section class="conv hidden" id="conv">
+      <header class="chat-head">
+        <button class="icon-btn only-mobile" id="backBtn" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20v-2z"/></svg></button>
+        <span id="peerAv"></span>
+        <div class="peer"><span id="peerName"></span><span class="status" id="peerStatus"></span></div>
+        <button class="icon-btn" id="callVideo" aria-label="Video call" title="Video call"><svg viewBox="0 0 24 24"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/></svg></button>
+        <button class="icon-btn" id="callVoice" aria-label="Voice call" title="Voice call"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.6 3.6a1 1 0 0 1-.25 1l-2.25 2.2z"/></svg></button>
+      </header>
+      <div class="msgs" id="msgs"></div>
+      <div class="edit-bar hidden" id="editBar">
+        <div><b>Editing message</b><span id="editText"></span></div>
+        <button class="icon-btn" id="editCancel" type="button" aria-label="Cancel edit"><svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z"/></svg></button>
+      </div>
+      <div class="edit-bar hidden" id="replyBar">
+        <div><b id="replyWho"></b><span id="replyText"></span></div>
+        <button class="icon-btn" id="replyCancel" type="button" aria-label="Cancel reply"><svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z"/></svg></button>
+      </div>
+      <div class="emoji-pop hidden" id="emojiPop"></div>
+      <div class="rec-bar hidden" id="recBar">
+        <button class="icon-btn" id="recCancel" type="button" aria-label="Cancel recording" title="Cancel"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+        <span class="rec-dot"></span><span id="recTime">0:00</span><span class="rec-hint">Recording…</span>
+        <button class="send" id="recSend" type="button" aria-label="Send voice message"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
+      </div>
+      <form class="composer" id="composer" autocomplete="off">
+        <button class="icon-btn" id="emojiBtn" type="button" aria-label="Emoji" title="Emoji"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-3.5-9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm7 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM12 17.5c2.3 0 4.3-1.4 5.1-3.5H6.9c.8 2.1 2.8 3.5 5.1 3.5z"/></svg></button>
+        <button class="icon-btn" id="attachBtn" type="button" aria-label="Attach a file" title="Send photo, video or file"><svg viewBox="0 0 24 24"><path d="M16.5 6v11.5a4 4 0 0 1-8 0V5a2.5 2.5 0 0 1 5 0v10.5a1 1 0 0 1-2 0V6H10v9.5a2.5 2.5 0 0 0 5 0V5a4 4 0 0 0-8 0v12.5a5.5 5.5 0 0 0 11 0V6h-1.5z"/></svg></button>
+        <input type="file" id="fileInput" multiple hidden>
+        <input id="text" placeholder="Type a message" maxlength="2000" enterkeyhint="send">
+        <button class="icon-btn" id="micBtn" type="button" aria-label="Record a voice message" title="Voice message"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11h-2z"/></svg></button>
+        <button class="send" type="submit" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg></button>
+      </form>
+    </section>
+  </main>
+</div>
+
+<div class="modal hidden" id="profileModal">
+  <div class="modal-card">
+    <h3>Your profile</h3>
+    <div class="avatar-edit">
+      <button type="button" class="pick" id="pPick" aria-label="Change photo"><span id="pAv"></span></button>
+      <input type="file" id="pFile" accept="image/png,image/jpeg,image/webp" hidden>
+      <button type="button" class="link-btn" id="pRemove">Remove photo</button>
+    </div>
+    <label class="field"><span>Name</span><div class="inp"><input id="pName" maxlength="40"></div></label>
+    <label class="field"><span>About</span><div class="inp"><input id="pAbout" maxlength="120"></div></label>
+    <div class="modal-actions">
+      <button class="btn ghost" id="pCancel" type="button">Cancel</button>
+      <button class="btn" id="pSave" type="button">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<div class="msg-menu hidden" id="msgMenu"></div>
+
+<div class="modal hidden" id="confirmModal">
+  <div class="modal-card">
+    <h3>Delete message?</h3>
+    <p>It will be removed for everyone in this chat. This cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn ghost" id="delNo" type="button">Cancel</button>
+      <button class="btn danger" id="delYes" type="button">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox hidden" id="lightbox">
+  <div class="lb-bar">
+    <a class="btn ghost" id="lbDl" download>Download</a>
+    <button class="icon-btn" id="lbClose" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4l5.6 5.6L5 17.6 6.4 19l5.6-5.6 5.6 5.6 1.4-1.4-5.6-5.6z"/></svg></button>
+  </div>
+  <img id="lbImg" alt="">
+</div>
+
+<script type="module" src="/src/chat.js"></script>
+</body>
+</html>
